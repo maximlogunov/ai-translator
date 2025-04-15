@@ -1,12 +1,14 @@
-import { pipeline, PipelineType, ProgressCallback, TextStreamer, TranslationPipeline } from '@huggingface/transformers';
+import { pipeline, PipelineType, ProgressCallback, TranslationPipeline } from '@huggingface/transformers';
 
-class MyTranslationPipeline {
+class AiTranslator {
   static task: PipelineType = 'translation';
   static model = 'Xenova/nllb-200-distilled-600M';
-  static instance: Promise<TranslationPipeline> | null = null;
+  static instance: TranslationPipeline | null = null;
+
   static async getInstance(progress_callback: ProgressCallback) {
-    this.instance ??= pipeline(this.task, this.model, { progress_callback }) as Promise<TranslationPipeline>;
-    
+    if (!this.instance) {
+      this.instance = await pipeline(this.task, this.model, { progress_callback }) as TranslationPipeline;
+    }
     return this.instance;
   }
 }
