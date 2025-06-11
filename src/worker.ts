@@ -9,9 +9,9 @@ import {
 } from "@huggingface/transformers";
 
 class Translator {
-  static task: PipelineType = "translation";
-  static model = "Xenova/nllb-200-distilled-600M";
-  static instance: TranslationPipeline | null = null;
+  private static readonly task: PipelineType = "translation";
+  private static readonly model = "Xenova/nllb-200-distilled-600M";
+  private static instance: TranslationPipeline | null = null;
 
   static async getInstance(progress_callback: ProgressCallback) {
     if (!this.instance) {

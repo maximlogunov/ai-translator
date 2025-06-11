@@ -59,10 +59,11 @@ function App() {
 
         case "update":
           // Generation update: update the output text.
-          setOutput(message.data.output);
+          setOutput(message.data.output[0].translation_text);
           break;
 
         case "complete":
+          setOutput(message.data.output[0].translation_text);
           // Generation complete: re-enable the "Translate" button
           setDisabled(false);
           break;
